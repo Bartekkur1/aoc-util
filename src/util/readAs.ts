@@ -1,17 +1,17 @@
-import { readFileSync, existsSync } from 'fs';
+import * as fs from 'fs';
 
 export type ParseFunction<T> = (input: string[]) => T;
 
-interface ReaderOptions<T> {
+export interface ReaderOptions<T> {
   path?: string;
   splitter?: RegExp;
   parser: ParseFunction<T>;
 };
 
 export const readAs = <T>(options: ReaderOptions<T>): T => {
-  const fileExists = existsSync(options.path || './input');
+  const fileExists = fs.existsSync(options.path || './input');
   if (fileExists) {
-    const fileContent = readFileSync(options.path || "./input", 'utf-8');
+    const fileContent = fs.readFileSync(options.path || "./input", 'utf-8');
     const splittedContent = fileContent.split(options.splitter || /\n/);
     return options.parser(splittedContent);
   } else {
