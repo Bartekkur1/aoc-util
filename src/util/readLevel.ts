@@ -57,7 +57,7 @@ export const readLevel = async <T>({
   const url = buildURL(level, year);
 
   if (cacheExists(url)) {
-    return readCache(url);
+    responseText = readCache(url);
   } else {
     const session = readEnvSession();
     const response = await fetch(url, {
